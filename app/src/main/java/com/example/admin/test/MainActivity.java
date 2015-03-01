@@ -4,13 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.mime.TypedByteArray;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -22,27 +20,23 @@ public class MainActivity extends ActionBarActivity {
         //api
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setEndpoint("https://api.github.com")
+                .setEndpoint("https://api.parse.com")
                 .build();
         final API myLogin = restAdapter.create(API.class);
-        myLogin.login("manager1","manager1", new Callback<String>() {
+        myLogin.login("manager2","manager2", new Callback<String>() {
             @Override
             public void success(String s, Response response) {
-                TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
-                checkLogin.setText("Login is work");
+
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                //строчка ниже смотрит ошибку в json'е
-                String json =  new String(((TypedByteArray)retrofitError.getResponse().getBody()).getBytes());
 
-
-                TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
-                checkLogin.setText(json);
             }
         });
-
+        //вывод сообщения, может пригодится
+        //TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
+        //checkLogin.setText("Login is work");
 
 
     }
