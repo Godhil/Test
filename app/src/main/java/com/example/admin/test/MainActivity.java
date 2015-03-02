@@ -10,6 +10,10 @@ import android.widget.TextView;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Array;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -55,7 +59,16 @@ public class MainActivity extends ActionBarActivity {
         }*/
 
         //получение списка офисов
-        final API officeInfo = restAdapter.create(API.class); //работает, но кажется, что что-то тут не так
+        final Gson gsonOffice = new GsonBuilder()
+                .registerTypeAdapter(OfficeInfo.class, new OfficeInfoDeserializer())
+                .registerTypeAdapter(Office.class, new OfficeDesserializer())
+                .create();
+        final RestAdapter restAdapterOffice = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setConverter(new GsonConverter(gsonOffice))
+                .setEndpoint("https://api.parse.com")
+                .build();
+        final API officeInfo = restAdapterOffice.create(API.class); //работает, но кажется, что что-то тут не так
         officeInfo.getOfficeInfo(new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
@@ -68,6 +81,9 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        //String json =  new String(((TypedByteArray)retrofitError.getResponse().getBody()).getBytes());
+        //TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
+        //checkLogin.setText("");
 
     }
 
