@@ -2,13 +2,21 @@ package com.example.admin.test;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
+import retrofit.mime.TypedByteArray;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -23,6 +31,9 @@ public class MainActivity extends ActionBarActivity {
                 .setEndpoint("https://api.parse.com")
                 .build();
         final API myLogin = restAdapter.create(API.class);
+
+
+        //Логин
         myLogin.login("manager2","manager2", new Callback<String>() {
             @Override
             public void success(String s, Response response) {
@@ -34,9 +45,28 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-        //вывод сообщения, может пригодится
-        //TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
-        //checkLogin.setText("Login is work");
+
+
+       /* try {
+            Thread.sleep(2000);
+            // any action
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+        //получение списка офисов
+        final API officeInfo = restAdapter.create(API.class); //работает, но кажется, что что-то тут не так
+        officeInfo.getOfficeInfo(new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+
+            }
+        });
 
 
     }
