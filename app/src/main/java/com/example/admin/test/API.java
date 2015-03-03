@@ -1,6 +1,7 @@
 package com.example.admin.test;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit.Callback;
 import retrofit.client.Response;
@@ -26,7 +27,7 @@ public interface API {
             "X-Parse-REST-API-Key: 0LiLbe5BYH0T1KQWq6X8yIjBrG3UsiLxNJyGsSN2"*/
     })
     @GET("/1/login")
-    public void login(@Query("username") String userName, @Query("password") String password, Callback<String> calBack);
+    public void login(@Query("username") String userName, @Query("password") String password, Callback<Object> calBack);
 
     //запрос данных офисов
     @Headers({
@@ -40,5 +41,4 @@ public interface API {
     })
     @GET(("/1/classes/Office"))
     public void getOfficeInfo(Callback<Response> officeNames);
-
 }

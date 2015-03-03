@@ -13,7 +13,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Array;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -30,33 +32,40 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         //api
+        Gson gsonLogin = new GsonBuilder()
+                .registerTypeAdapter(LoginInfo.class, new LoginDesserialize())
+                .create();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint("https://api.parse.com")
+                .setConverter(new GsonConverter(gsonLogin))
                 .build();
         final API myLogin = restAdapter.create(API.class);
-
-
-        //Логин
-        myLogin.login("manager2","manager2", new Callback<String>() {
+        myLogin.login("manager2","manager2", new Callback<Object>() {
             @Override
-            public void success(String s, Response response) {
-
+            public void success(Object o, Response response) {
+                if(response != null) {
+                    Log.d("Login ", "success");
+                    TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
+                    checkLogin.setText(o.toString());
+                }
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-
+                if(retrofitError != null){
+                    Log.e("Login ", retrofitError.toString());
+                }
             }
         });
 
 
-       /* try {
+        try {
             Thread.sleep(2000);
             // any action
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
 
         //получение списка офисов
         final Gson gsonOffice = new GsonBuilder()
@@ -72,18 +81,19 @@ public class MainActivity extends ActionBarActivity {
         officeInfo.getOfficeInfo(new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
-
+                if(response != null){
+                    Log.d("Office", response.getBody().toString());
+                    Log.d("Office", response2.getBody().toString());
+                }
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-
+                if(retrofitError != null){
+                    Log.e("Office", retrofitError.getBody().toString());
+                }
             }
         });
-
-        //String json =  new String(((TypedByteArray)retrofitError.getResponse().getBody()).getBytes());
-        //TextView checkLogin = (TextView) findViewById(R.id.checkLogin);
-        //checkLogin.setText("");
 
     }
 
