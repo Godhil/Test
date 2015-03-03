@@ -1,14 +1,9 @@
 package com.example.admin.test;
 
-import java.util.List;
-import java.util.Objects;
 
 import retrofit.Callback;
-import retrofit.client.Response;
 import retrofit.http.GET;
-import retrofit.http.Header;
 import retrofit.http.Headers;
-import retrofit.http.Part;
 import retrofit.http.Query;
 
 /**
@@ -40,5 +35,5 @@ public interface API {
             "X-Parse-REST-API-Key: 0LiLbe5BYH0T1KQWq6X8yIjBrG3UsiLxNJyGsSN2"*/
     })
     @GET(("/1/classes/Office"))
-    public void getOfficeInfo(Callback<Response> officeNames);
+    public void getOfficeInfo(Callback<Object> officeNames);
 }

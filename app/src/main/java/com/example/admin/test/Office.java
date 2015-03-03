@@ -1,5 +1,7 @@
 package com.example.admin.test;
 
+import android.util.Log;
+
 /**
  * Created by admin on 02.03.2015.
  */
@@ -8,7 +10,6 @@ public class Office {
     private String name, adress;
 
     public Office(){
-
     }
 
     public Office(/*boolean read, boolean write, */String name, String adress){
@@ -16,6 +17,7 @@ public class Office {
         //this.write = write;
         this.name = name;
         this.adress = adress;
+
     }
 
     public String getName(){

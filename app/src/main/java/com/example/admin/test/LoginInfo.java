@@ -1,13 +1,10 @@
 package com.example.admin.test;
 
-import android.util.Log;
-import android.widget.TextView;
-
 /**
  * Created by admin on 03.03.2015.
  */
 public class LoginInfo {
-    private String userName, sessionToken, objectId, email;
+    private  String userName, sessionToken, objectId, email;
 
     public LoginInfo(){
 
