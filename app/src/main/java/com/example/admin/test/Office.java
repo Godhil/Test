@@ -7,17 +7,10 @@ import android.util.Log;
  */
 public class Office {
     // boolean read, write;
-    private String name, adress;
+    private String name;
+    private String address;
 
     public Office(){
-    }
-
-    public Office(/*boolean read, boolean write, */String name, String adress){
-        //this.read = read;
-        //this.write = write;
-        this.name = name;
-        this.adress = adress;
-
     }
 
     public String getName(){
@@ -28,10 +21,10 @@ public class Office {
     }
 
     public String getAdress(){
-        return adress;
+        return address;
     }
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAdress(String address) {
+        this.address = address;
     }
     /*public boolean getRead(){
          return read;

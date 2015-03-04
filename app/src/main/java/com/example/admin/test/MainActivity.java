@@ -7,16 +7,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.converter.GsonConverter;
 
 public class MainActivity extends ActionBarActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,40 +24,35 @@ public class MainActivity extends ActionBarActivity {
         findViewById(R.id.buttonLoginPage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.startActivity(new Intent(MainActivity.this, MyActivity.class));
+                MainActivity.this.startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         //получение списка офисов
-        final Gson gsonOffice = new GsonBuilder()
-                .registerTypeAdapter(OfficeInfo.class, new OfficeInfoDeserializer())
-                .registerTypeAdapter(Office.class, new OfficeDesserializer())
-                .create();
+
         final RestAdapter restAdapterOffice = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setConverter(new GsonConverter(gsonOffice))
                 .setEndpoint("https://api.parse.com")
                 .build();
         final API officeInfo = restAdapterOffice.create(API.class);
-        officeInfo.getOfficeInfo(new Callback<Object>() {
+
+        officeInfo.getOfficeInfo(new Callback<OfficeFeed>() {
             @Override
-            public void success(Object o, Response response) {
+            public void success(OfficeFeed officeFeed, Response response) {
+                int sizeList = officeFeed.getFeed().size();
+                for (int i = 0; i < sizeList; i++) {
+                    
+
+                }
 
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                if(retrofitError != null){
-                    Log.e("Office", retrofitError.toString());
-                }
+                Log.e("Office", retrofitError.getMessage());
             }
         });
+
     }
 
     @Override

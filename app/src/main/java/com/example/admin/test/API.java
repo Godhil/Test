@@ -11,29 +11,19 @@ import retrofit.http.Query;
  */
 public interface API {
 
-    //реализация логина
+    //запрос логина
     @Headers({
-            //motmom
             "X-Parse-Application-Id: A4BZqxxFMoEyoUWcKmEFP3IWkF1SzMTYMITaXjQd",
             "X-Parse-REST-API-Key: qi9tySwA6DpLRGWSt5KkzEV4J3MNNG7BHy9CvYOc"
-
-            //моё
-            /*"X-Parse-Application-Id: Co8dcFpQqW68wuoHyw88THP2uCmnynnnamLoZgLq",
-            "X-Parse-REST-API-Key: 0LiLbe5BYH0T1KQWq6X8yIjBrG3UsiLxNJyGsSN2"*/
     })
     @GET("/1/login")
-    public void login(@Query("username") String userName, @Query("password") String password, Callback<Object> calBack);
+    public void getData(@Query("username") String userName, @Query("password") String password, Callback<LoginResult> response);
 
     //запрос данных офисов
     @Headers({
-            //motmom
             "X-Parse-Application-Id: A4BZqxxFMoEyoUWcKmEFP3IWkF1SzMTYMITaXjQd",
             "X-Parse-REST-API-Key: qi9tySwA6DpLRGWSt5KkzEV4J3MNNG7BHy9CvYOc"
-
-            //моё
-            /*"X-Parse-Application-Id: Co8dcFpQqW68wuoHyw88THP2uCmnynnnamLoZgLq",
-            "X-Parse-REST-API-Key: 0LiLbe5BYH0T1KQWq6X8yIjBrG3UsiLxNJyGsSN2"*/
     })
     @GET(("/1/classes/Office"))
-    public void getOfficeInfo(Callback<Object> officeNames);
+    public void getOfficeInfo(Callback<OfficeFeed> response);
 }

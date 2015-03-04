@@ -22,8 +22,22 @@
         android:layout_height="wrap_content"
         android:text="Login Page"
         android:id="@+id/buttonLoginPage"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:importantForAccessibility="auto" />
+        android:importantForAccessibility="auto"
+        android:padding="10dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignWithParentIfMissing="false" />
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridOfficeView"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="100dp" />
 
 </RelativeLayout>
