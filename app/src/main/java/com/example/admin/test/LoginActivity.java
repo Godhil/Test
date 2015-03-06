@@ -40,7 +40,7 @@ public class LoginActivity extends ActionBarActivity {
 
                         checkLogin.setText("Пользователь " + loginResult.getUsername());
 
-                        //посмотреть вернуться на страницу с данными организаций
+                        // вернуться на страницу с данными организаций
                         findViewById(R.id.buttonBack).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

@@ -1,6 +1,9 @@
 package com.example.admin.test;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -31,6 +37,10 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        //что то там делает синхронно
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         //получение списка офисов + вывод названий
         final RestAdapter restAdapterOffice = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -41,18 +51,27 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void success(final OfficeFeed officeFeed, Response response) {
                 int sizeList = officeFeed.getFeed().size();
-                Integer[] imageId = new Integer[sizeList];//сюда запихнуть картинки офисов
+                final Bitmap[] imageId = new Bitmap[sizeList];//сюда запихнуть картинки офисов
                 final String[] name = new String[sizeList];
                 final String[] adress = new String[sizeList];
+
                 for (int i = 0; i < sizeList; i++) {
-                    imageId[i] = R.mipmap.ic_launcher;
-                    name[i] = officeFeed.getFeed().get(i).getName();
-                    adress[i]= officeFeed.getFeed().get(i).getAdress();
+                    try {
+                        imageId[i] = BitmapFactory.decodeStream(officeFeed.getFeed().get(i).getImage().getUrl().openConnection().getInputStream());
+                        name[i] = officeFeed.getFeed().get(i).getName();
+                        adress[i]= officeFeed.getFeed().get(i).getAdress();
+                        Log.d("Image", officeFeed.getFeed().get(i).getImage().getName());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
                 //выводит названия заведений в listview, пока без нужных картинок
                 CustomListAdapter adapter = new CustomListAdapter(MainActivity.this, name, adress, imageId);
                 ListView list=(ListView)findViewById(R.id.listViewOffice);
                 list.setAdapter(adapter);
+
+                //нажатие по элементу списка
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,

@@ -1,16 +1,19 @@
 package com.example.admin.test;
 
-import android.util.Log;
+import java.net.URL;
 
 /**
  * Created by admin on 02.03.2015.
  */
 public class Office {
-    // boolean read, write;
+
     private String name;
     private String address;
+    private Image image;
+    //private OfficeImage officeImage;
 
     public Office(){
+
     }
 
     public String getName(){
@@ -26,17 +29,34 @@ public class Office {
     public void setAdress(String address) {
         this.address = address;
     }
-    /*public boolean getRead(){
-         return read;
-     }
-    public void setRead(boolean read) {
-        this.read = read;
+
+    public Image getImage() {
+        return image;
     }
 
-    public boolean getWrite(){
-        return write;
+    public void setImage(Image image) {
+        this.image = image;
     }
-    public void setWrite(boolean write) {
-        this.write = write;
-    }*/
+
+    public static class Image{
+        private String name;
+        private URL url;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public URL getUrl() {
+            return url;
+        }
+
+        public void setUrl(URL url) {
+            this.url = url;
+        }
+    }
+
 }
