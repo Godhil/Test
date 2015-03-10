@@ -1,4 +1,4 @@
-package com.example.admin.test;
+package com.example.admin.test.Office;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,14 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.example.admin.test.API;
+import com.example.admin.test.CustomListAdapter;
+import com.example.admin.test.Login.LoginActivity;
+import com.example.admin.test.Office.Reservation.ReservationActivity;
+import com.example.admin.test.Office.Place.PlaceActivity;
+import com.example.admin.test.R;
+import com.example.admin.test.TempVariables;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -29,6 +32,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final TempVariables tempVariables = new TempVariables();
         //переход к логину
         findViewById(R.id.buttonLoginPage).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +41,6 @@ public class MainActivity extends ActionBarActivity {
                 MainActivity.this.startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
-
         //что то там делает синхронно
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -47,11 +51,12 @@ public class MainActivity extends ActionBarActivity {
                 .setEndpoint("https://api.parse.com")
                 .build();
         final API officeInfo = restAdapterOffice.create(API.class);
-        officeInfo.getOfficeInfo(new Callback<OfficeFeed>() {
+        officeInfo.getOfficeInfo("OgzGGHp90V",new Callback<OfficeFeed>() {
             @Override
             public void success(final OfficeFeed officeFeed, Response response) {
+
                 int sizeList = officeFeed.getFeed().size();
-                final Bitmap[] imageId = new Bitmap[sizeList];//сюда запихнуть картинки офисов
+                final Bitmap[] imageId = new Bitmap[sizeList];
                 final String[] name = new String[sizeList];
                 final String[] adress = new String[sizeList];
 
@@ -60,23 +65,22 @@ public class MainActivity extends ActionBarActivity {
                         imageId[i] = BitmapFactory.decodeStream(officeFeed.getFeed().get(i).getImage().getUrl().openConnection().getInputStream());
                         name[i] = officeFeed.getFeed().get(i).getName();
                         adress[i]= officeFeed.getFeed().get(i).getAdress();
-                        Log.d("Image", officeFeed.getFeed().get(i).getImage().getName());
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    e.printStackTrace();
+                }
                 }
 
-                //выводит названия заведений в listview, пока без нужных картинок
+                //выводит названия заведений в listview
                 CustomListAdapter adapter = new CustomListAdapter(MainActivity.this, name, adress, imageId);
                 ListView list=(ListView)findViewById(R.id.listViewOffice);
                 list.setAdapter(adapter);
 
                 //нажатие по элементу списка
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view,
-                                            int position, long id) {
-                        Toast.makeText(MainActivity.this, "You Clicked at " + name[+position], Toast.LENGTH_SHORT).show();
+                   @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        tempVariables.setTempOfficeId(officeFeed.getFeed().get(position).getObjectId());
+                        MainActivity.this.startActivity(new Intent(MainActivity.this, ReservationActivity.class));
                     }
                 });
             }
@@ -88,13 +92,15 @@ public class MainActivity extends ActionBarActivity {
         });
         //конец
 
+
         findViewById(R.id.bu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.this.startActivity(new Intent(MainActivity.this, ReservationActivity.class));
+
             }
+
         });
-
-
     }
 
     @Override

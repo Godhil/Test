@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".Office.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +25,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:name=".Login.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".Office.Reservation.ReservationActivity"
+            android:label="@string/title_activity_booking"
+            >
+        </activity>
+        <activity
+            android:name=".Office.Place.PlaceActivity"
+            android:label="@string/title_activity_place">
         </activity>
     </application>
 

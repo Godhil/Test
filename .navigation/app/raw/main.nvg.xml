@@ -22,7 +22,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.example.admin.test.LoginActivity"/>
+        className = "com.example.admin.test.Login.LoginActivity"/>
       <point      
         x = "2408"      
         y = "40"/>
@@ -30,7 +30,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.MenuState"      
-        className = "com.example.admin.test.LoginActivity"/>
+        className = "com.example.admin.test.Login.LoginActivity"/>
       <point      
         x = "2716"      
         y = "92"/>
@@ -38,7 +38,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "com.example.admin.test.MainActivity"/>
+        className = "com.example.admin.test.Office.MainActivity"/>
       <point      
         x = "356"      
         y = "4"/>
@@ -46,7 +46,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.MenuState"      
-        className = "com.example.admin.test.MainActivity"/>
+        className = "com.example.admin.test.Office.MainActivity"/>
       <point      
         x = "1624"      
         y = "4"/>
