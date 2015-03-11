@@ -7,8 +7,6 @@ import com.example.admin.test.Office.Reservation.ReservationFeed;
 import com.example.admin.test.Office.OfficeFeed;
 import com.example.admin.test.Office.Place.PlaceFeed;
 
-import java.util.Map;
-
 import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.Body;
@@ -36,7 +34,7 @@ public interface API {
             "X-Parse-REST-API-Key: qi9tySwA6DpLRGWSt5KkzEV4J3MNNG7BHy9CvYOc"
     })
     @GET("/1/classes/Office/")
-    public void getOfficeInfo(@Query("objectId") String objectId,Callback<OfficeFeed> response);
+    public void getOfficeInfo(Callback<OfficeFeed> response);
 
     //запрос броней
     @Headers({
@@ -44,7 +42,7 @@ public interface API {
             "X-Parse-REST-API-Key: qi9tySwA6DpLRGWSt5KkzEV4J3MNNG7BHy9CvYOc"
     })
     @GET("/1/classes/Reservation")
-    public void getBooking(Callback<ReservationFeed> response);
+    public void getReservation(Callback<ReservationFeed> response);
 
     //запрос данных о столиках
     @Headers({
@@ -60,7 +58,6 @@ public interface API {
             "X-Parse-REST-API-Key: qi9tySwA6DpLRGWSt5KkzEV4J3MNNG7BHy9CvYOc"
     })
     @POST("/1/classes/Reservation")
-    //public void createReservation(@Body Map<String, String> stringStringMap, Callback<Response> response);
     public void createReservation(@Body CreateReservation createReservation, Callback<Response> response);
 
     //удаление брони, что то тут не так

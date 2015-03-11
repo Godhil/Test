@@ -17,9 +17,10 @@
         android:layout_marginTop="30dp" />
 
     <Button
+        android:textSize="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login Page"
+        android:text="Сменить пользователя"
         android:id="@+id/buttonLoginPage"
         android:layout_centerHorizontal="true"
         android:importantForAccessibility="auto"
@@ -29,11 +30,6 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentRight="true"
         android:layout_alignWithParentIfMissing="false" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bu"/>
-
 
     <ListView
         android:layout_width="wrap_content"

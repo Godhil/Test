@@ -36,6 +36,8 @@ public class LoginActivity extends ActionBarActivity {
             public void onClick(View v) {
                 String setLogin = userLogin.getText().toString();
                 String setPassword = userPassword.getText().toString();
+
+
                 //логин
                 RestAdapter restAdapter = new RestAdapter.Builder()
                         .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -46,38 +48,21 @@ public class LoginActivity extends ActionBarActivity {
                     @Override
                     public void success(final LoginResult loginResult, Response response) {
                         tempVariables.setTempUserName(loginResult.getUsername());
-                        checkLogin.setText("Пользователь " + tempVariables.getTempUserName());
+                        userLogin.setText("");
+                        userPassword.setText("");
                         LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
 
                     @Override
                     public void failure(RetrofitError retrofitError) {
-                        Log.e("Login ", retrofitError.getMessage());
+                        Log.e("Login", retrofitError.getMessage());
                         TextView checkLogin = (TextView) findViewById(R.id.textStatus);
-                        checkLogin.setText("Login " + retrofitError.getMessage());
+                        checkLogin.setText("Неверный логин или пароль");
                     }
                 });
             }
         });
         //конец
-/*
-        //автовход
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setEndpoint("https://api.parse.com")
-                .build();
-        final API myLogin = restAdapter.create(API.class);
-        myLogin.getData("manager1", "manager1", new Callback<LoginResult>() {
-            @Override
-            public void success(final LoginResult loginResult, Response response) {
-                LoginActivity.this.startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
-        //конец
-        */
     }
 }

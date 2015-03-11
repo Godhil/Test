@@ -1,7 +1,5 @@
 package com.example.admin.test.Office.Place;
 
-import com.example.admin.test.Office.Office;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by admin on 09.03.2015.

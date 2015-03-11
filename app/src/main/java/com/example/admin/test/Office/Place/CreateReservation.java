@@ -3,8 +3,6 @@ package com.example.admin.test.Office.Place;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.security.Key;
-
 /**
  * Created by admin on 10.03.2015.
  */
